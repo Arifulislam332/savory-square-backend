@@ -1,9 +1,12 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import "dotenv/config";
 
 // db connection
-
+mongoose
+  .connect(process.env.MONGODB_URI as string)
+  .then(() => console.log("DB conected successfully😉!"));
 
 // express
 const app = express();
