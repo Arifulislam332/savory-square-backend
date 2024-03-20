@@ -1,26 +1,16 @@
-import express, { Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import cors from "cors";
-import mongoose from "mongoose";
+
 import "dotenv/config";
+import { connectDb } from "./config/db.config";
 
-// db connection
-mongoose
-  .connect(process.env.MONGODB_URI as string)
-  .then(() => console.log("DB conected successfully😉!"));
+const app: Application = express();
 
-// express
-const app = express();
-
-// middlewers
-app.use(express.json()); //body parcer
+app.use(express.json());
 app.use(cors());
 
-// test api
-app.get("/test", async (req: Request, res: Response) => {
-  res.status(200).json({ message: "Welcome to our server🥰!" });
-});
+connectDb();
 
-// listen app
 app.listen(8080, () => {
   console.log("Server is running on port:8080");
 });
