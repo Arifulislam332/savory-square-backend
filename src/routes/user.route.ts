@@ -1,9 +1,11 @@
 import express, { Router } from "express";
-import { createCurruser } from "../controllers/user.controller";
-import { jwtCheck } from "../middlewares/auth.middleware";
+import { createCurrUser, updateCurrUser } from "../controllers/user.controller";
+import { jwtCheck, jwtParse } from "../middlewares/auth.middleware";
+import { validateMyUserRequest } from "../dto/user.dto";
 
 const router: Router = express.Router();
 
-router.post("/", jwtCheck, createCurruser);
+router.post("/", jwtCheck, createCurrUser);
+router.put("/", jwtCheck, jwtParse, validateMyUserRequest, updateCurrUser);
 
 export default router;
